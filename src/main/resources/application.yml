@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    password: 111
+    url: jdbc:h2:mem:testdb
+    username: finaluser_1
+    driver-classname: org.h2.Driver
+  h2:
+    console:
+      path: /h2
+      enabled: true
+  output:
+    ansi:
+      enabled: always
+  flyway:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
