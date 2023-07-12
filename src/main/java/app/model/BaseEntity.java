@@ -19,5 +19,5 @@ public abstract class BaseEntity implements Serializable {
 
   @CreatedDate
   @Column(name = "created_at")
-  private LocalDateTime createdAt;
+  private LocalDateTime createdAt = LocalDateTime.now();
 }

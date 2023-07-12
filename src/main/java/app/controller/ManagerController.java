@@ -1,14 +1,20 @@
 package app.controller;
 
+import app.annotation.Marker;
+import app.dto.rq.UserRequestDTO;
+import app.dto.rs.UserResponseDTO;
+import app.facade.UserFacade;
 import app.model.UserModel;
 import app.service.UserService;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Log4j2
 @Validated
@@ -16,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/manager")
 public class ManagerController {
-  private final UserService userService;
+  private final UserFacade userFacade;
 
-  @PostMapping("/create")
+  @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   //@ApiOperation("Create user")
-  public UserModel createUser(){
-    return userService.createUser();
+  public ResponseEntity<UserResponseDTO> createUser(@RequestBody @JsonView(Marker.New.class) @Valid UserRequestDTO signUpDTO){
+    return ResponseEntity.ok(userFacade.createUser(signUpDTO));
   }
 
   /*
