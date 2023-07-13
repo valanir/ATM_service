@@ -22,4 +22,8 @@ public class UserFacade extends GeneralFacade<UserModel, UserRequestDTO, UserRes
   public UserResponseDTO createUser(UserRequestDTO userRequestDTO){
     return convertToDto(userService.createUser(convertToEntity(userRequestDTO)));
   }
+
+  public UserResponseDTO getUser(Long login){
+    return convertToDto(userService.getUser(login));
+  }
 }

@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @Log4j2
 @Validated
@@ -28,6 +29,11 @@ public class ManagerController {
   //@ApiOperation("Create user")
   public ResponseEntity<UserResponseDTO> createUser(@RequestBody @JsonView(Marker.New.class) @Valid UserRequestDTO signUpDTO){
     return ResponseEntity.ok(userFacade.createUser(signUpDTO));
+  }
+
+  @GetMapping("{login}")
+  public ResponseEntity<UserResponseDTO> getUser(@PathVariable(name = "login") @Positive Long login){
+    return ResponseEntity.ok(userFacade.getUser(login));
   }
 
   /*
