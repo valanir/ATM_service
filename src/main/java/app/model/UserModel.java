@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,8 +21,11 @@ public class UserModel extends BaseEntity {
   @Column(unique=true)
   private Long login;
 
-  @OneToMany
-  private List<Transaction> transactions;
+  @OneToMany(mappedBy = "userTransfer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Set<Transaction> transactions;
+
+  @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Set<DepositModel> depositModels;
 
   private String secretWord;
   private String pin;

@@ -5,19 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "transaction")
 @NoArgsConstructor
 @AllArgsConstructor
 @SequenceGenerator(name = "custom_gen", sequenceName = "users_id_seq", allocationSize = 1)
 public class Transaction extends BaseEntity{
+
   @ManyToOne
+  @JoinColumn(name = "login")
   private UserModel userTransfer;
 
   //private Long userReceiveId;

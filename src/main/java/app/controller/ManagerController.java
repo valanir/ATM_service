@@ -7,6 +7,7 @@ import app.facade.UserFacade;
 import app.model.UserModel;
 import app.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
@@ -26,6 +27,8 @@ import java.util.Map;
 @RequestMapping("/api/v1/manager")
 public class ManagerController {
   private final UserFacade userFacade;
+
+  //http://localhost:8080/swagger-ui/index.html#/
 
   @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   @JsonView({Marker.Basic.class})
@@ -53,6 +56,11 @@ public class ManagerController {
     return ResponseEntity.ok(userFacade.getUserValues(login));
   }
 
+  @PostMapping("withdraw")
+  ResponseEntity<UserResponseDTO> withdrawMoney(UserRequestDTO userRequestDTO){
+    return ResponseEntity.ok(userFacade.withdrawMoney(userRequestDTO));
+  }
+  //putMoney
 
   /*
   setValue

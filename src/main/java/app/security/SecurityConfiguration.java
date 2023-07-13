@@ -28,10 +28,18 @@ public class SecurityConfiguration {
       .authorizeRequests()
       .antMatchers("/").permitAll()
       .antMatchers("/api/v1/manager/*").permitAll()
+      .antMatchers("/swagger-ui/**").permitAll()
+      .antMatchers("/swagger-resources").permitAll()
+      .antMatchers("/swagger-resources/**").permitAll()
+      .antMatchers("/webjars/**").permitAll()
+      .antMatchers("/v2/api-docs").permitAll()
+      .antMatchers("/h2/**").permitAll()
 
       .anyRequest().authenticated()
       .and()
       .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
+
+    httpSec.headers().frameOptions().disable();
     return httpSec.build();
   }
 }

@@ -30,6 +30,12 @@ public class UserService extends GeneralService<UserModel> {
     return userModelRepository.getUserModelByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
   }
 
+  public UserModel withdrawMoney(UserModel userModel){
+    UserModel user = userModelRepository.getUserModelByLogin(userModel.getLogin()).orElseThrow(() -> new UserNotFoundException(userModel.getLogin()));
+    System.out.println(user);
+    return user;
+  }
+
   @Transactional
   public String deleteUser(Long login){
     UserModel userModel = getUser(login);

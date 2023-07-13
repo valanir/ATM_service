@@ -31,6 +31,11 @@ public class UserFacade extends GeneralFacade<UserModel, UserRequestDTO, UserRes
     return convertToDto(userService.getUserValues(login));
   }
 
+  public UserResponseDTO withdrawMoney(UserRequestDTO userRequestDTO){
+    System.out.println(mapToEntity(userRequestDTO, new UserModel()));
+    return convertToDto(userService.withdrawMoney(mapToEntity(userRequestDTO, new UserModel())));
+  }
+
   public String deleteUser(Long login){
     return userService.deleteUser(login);
   }

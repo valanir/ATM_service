@@ -6,10 +6,8 @@ import lombok.Data;
 
 @Data
 public class UserRequestDTO {
-  @JsonView({Marker.New.class})
   String name;
-  @JsonView({Marker.New.class})
   String lastName;
-  @JsonView({Marker.New.class})
   String secretWord;
+  Long login;
 }
