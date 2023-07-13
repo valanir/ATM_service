@@ -20,7 +20,7 @@ public class UserModel extends BaseEntity {
   private String name;
   private String lastName;
 
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue
   private Long login;
 
   private String secretWord;
