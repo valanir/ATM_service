@@ -3,7 +3,10 @@ package app.annotation;
 public interface Marker {
   interface New {
   }
-  interface Details{
+  interface Basic {
+  }
+
+  interface Details {
 
   }
 }

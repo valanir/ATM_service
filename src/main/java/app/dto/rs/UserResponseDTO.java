@@ -6,21 +6,26 @@ import lombok.Data;
 
 @Data
 public class UserResponseDTO {
-  @JsonView({Marker.Details.class})
+  @JsonView({Marker.Basic.class, Marker.Details.class})
   private Long login;
-  @JsonView({Marker.Details.class})
+  @JsonView({Marker.Basic.class})
   private String name;
-  @JsonView({Marker.Details.class})
+  @JsonView({Marker.Basic.class})
   private String lastName;
-  @JsonView({Marker.Details.class})
+  @JsonView({Marker.Basic.class})
   private String secretWord;
-  @JsonView({Marker.Details.class})
+  @JsonView({Marker.Basic.class, Marker.Details.class})
   private Double uah;
-/*  Double Uah;
-  Double Usd;
-  Double Euro;
-  Double PoundSterling;
-  Double Yuan;
-  Double Zloty;
-  Double Yen;*/
+  @JsonView({Marker.Details.class})
+  Double usd;
+  @JsonView({Marker.Details.class})
+  Double euro;
+  @JsonView({Marker.Details.class})
+  Double poundSterling;
+  @JsonView({Marker.Details.class})
+  Double yuan;
+  @JsonView({Marker.Details.class})
+  Double zloty;
+  @JsonView({Marker.Details.class})
+  Double yen;
 }

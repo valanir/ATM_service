@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.HashMap;
+import java.util.Map;
 
 @Log4j2
 @Validated
@@ -26,19 +28,33 @@ public class ManagerController {
   private final UserFacade userFacade;
 
   @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @JsonView({Marker.Basic.class})
   //@ApiOperation("Create user")
   public ResponseEntity<UserResponseDTO> createUser(@RequestBody @JsonView(Marker.New.class) @Valid UserRequestDTO signUpDTO){
     return ResponseEntity.ok(userFacade.createUser(signUpDTO));
   }
 
+
   @GetMapping("{login}")
+  @JsonView({Marker.Basic.class})
   public ResponseEntity<UserResponseDTO> getUser(@PathVariable(name = "login") @Positive Long login){
     return ResponseEntity.ok(userFacade.getUser(login));
   }
 
+  @DeleteMapping("{login}/delete")
+  //TODO: fix this
+  public ResponseEntity deleteUser(@PathVariable(name = "login") @Positive Long login) {
+    return ResponseEntity.ok(userFacade.deleteUser(login));
+  }
+
+  @JsonView({Marker.Details.class})
+  @GetMapping("{login}/all_value")
+  public ResponseEntity<UserResponseDTO> getAllValues(@PathVariable(name = "login") @Positive Long login){
+    return ResponseEntity.ok(userFacade.getUserValues(login));
+  }
+
+
   /*
-  createUser
-  deleteUser
   setValue
   openDeposit
   getTransactionList

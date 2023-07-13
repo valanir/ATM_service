@@ -3,12 +3,9 @@ package app.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,13 +20,16 @@ public class UserModel extends BaseEntity {
   @Column(unique=true)
   private Long login;
 
+  @OneToMany
+  private List<Transaction> transactions;
+
   private String secretWord;
   private String pin;
   private Double uah = 0d;
-  private Double Usd = 0d;
-  private Double Euro = 0d;
-  private Double PoundSterling = 0d;
-  private Double Yuan = 0d;
-  private Double Zloty = 0d;
-  private Double Yen = 0d;
+  private Double usd = 0d;
+  private Double euro = 0d;
+  private Double poundSterling = 0d;
+  private Double yuan = 0d;
+  private Double zloty = 0d;
+  private Double yen = 0d;
 }
