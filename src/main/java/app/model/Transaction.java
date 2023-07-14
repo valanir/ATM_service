@@ -19,6 +19,7 @@ public class Transaction extends BaseEntity{
   @JoinColumn(name = "login")
   private UserModel userTransfer;
 
-  //private Long userReceiveId;
+  private String transactionName;
+  private Long userReceiveId;
 
 }

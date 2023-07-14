@@ -68,12 +68,12 @@ public class ManagerController {
     return ResponseEntity.ok(valueOperationFacade.putMoney(valueOperationRequestDTO));
   }
 
-  //putMoney
-
+  @PostMapping("deposit")
+  ResponseEntity<UserResponseDTO> depositMoney(@RequestBody @JsonView(Marker.Value.class) @Valid ValueOperationRequestDTO valueOperationRequestDTO){
+    return ResponseEntity.ok(valueOperationFacade.depositMoney(valueOperationRequestDTO));
+  }
   /*
-  setValue
   openDeposit
   getTransactionList
-  showAllValue
    */
 }

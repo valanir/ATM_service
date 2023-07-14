@@ -23,4 +23,8 @@ public class ValueOperationFacade extends GeneralFacade<ValueOperation, ValueOpe
   public UserResponseDTO putMoney(ValueOperationRequestDTO valueOperationRequestDTO){
     return userFacade.convertToDto(userService.moneyValueOperation(convertToEntity(valueOperationRequestDTO)));
   }
+
+  public UserResponseDTO depositMoney(ValueOperationRequestDTO valueOperationRequestDTO){
+    return userFacade.convertToDto(userService.depositMoney(convertToEntity(valueOperationRequestDTO)));
+  }
 }

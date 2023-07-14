@@ -1,5 +1,6 @@
 package app.service;
 
+import app.exceptions.userException.UserHasNotEnoughMoney;
 import app.exceptions.userException.UserNotFoundException;
 import app.model.UserModel;
 import app.model.ValueOperation;
@@ -32,7 +33,33 @@ public class UserService extends GeneralService<UserModel> {
   }
 
   public UserModel moneyValueOperation(ValueOperation valueOperation){
-    UserModel user = userModelRepository.getUserModelByLogin(valueOperation.getLoginUser()).orElseThrow(() -> new UserNotFoundException(valueOperation.getLoginUser()));
+    UserModel user = userModelRepository.getUserModelByLogin(valueOperation.getLoginUser())
+                                            .orElseThrow(() -> new UserNotFoundException(valueOperation.getLoginUser()));
+    if(valueOperation.getValueSize() < 0) {
+      switch (valueOperation.getValuesName()){
+        case UAH -> {
+          if(valueOperation.getValueSize() > user.getUah()) new UserHasNotEnoughMoney(user.getLogin());
+        }
+        case USD -> {
+          if(valueOperation.getValueSize() > user.getUsd()) new UserHasNotEnoughMoney(user.getLogin());
+        }
+        case EURO -> {
+          if(valueOperation.getValueSize() > user.getEuro()) new UserHasNotEnoughMoney(user.getLogin());
+        }
+        case POUNDSTERLING -> {
+          if(valueOperation.getValueSize() > user.getPoundSterling()) new UserHasNotEnoughMoney(user.getLogin());
+        }
+        case YUAN -> {
+          if(valueOperation.getValueSize() > user.getYuan()) new UserHasNotEnoughMoney(user.getLogin());
+        }
+        case ZLOTY -> {
+          if(valueOperation.getValueSize() > user.getZloty()) new UserHasNotEnoughMoney(user.getLogin());
+        }
+        case YEN -> {
+          if(valueOperation.getValueSize() > user.getYen()) new UserHasNotEnoughMoney(user.getLogin());
+        }
+      }
+    }
     switch (valueOperation.getValuesName()){
       case UAH -> user.setUah(user.getUah() + valueOperation.getValueSize());
       case USD -> user.setUah(user.getUsd() + valueOperation.getValueSize());
@@ -43,6 +70,12 @@ public class UserService extends GeneralService<UserModel> {
       case YEN -> user.setYen(user.getYen() + valueOperation.getValueSize());
     }
     save(user);
+    return user;
+  }
+
+  public UserModel depositMoney(ValueOperation valueOperation){
+    UserModel user = userModelRepository.getUserModelByLogin(valueOperation.getLoginUser())
+      .orElseThrow(() -> new UserNotFoundException(valueOperation.getLoginUser()));
     return user;
   }
 
