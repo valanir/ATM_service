@@ -21,6 +21,8 @@ public class UserModel extends BaseEntity {
   @Column(unique=true)
   private Long login;
 
+  private Long pin;
+
   @OneToMany(mappedBy = "userTransfer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   private Set<Transaction> transactions;
 
@@ -28,7 +30,6 @@ public class UserModel extends BaseEntity {
   private Set<DepositModel> depositModels;
 
   private String secretWord;
-  private String pin;
   private Double uah = 0d;
   private Double usd = 0d;
   private Double euro = 0d;

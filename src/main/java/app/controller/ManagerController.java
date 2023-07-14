@@ -2,8 +2,10 @@ package app.controller;
 
 import app.annotation.Marker;
 import app.dto.rq.UserRequestDTO;
+import app.dto.rq.ValueOperationRequestDTO;
 import app.dto.rs.UserResponseDTO;
 import app.facade.UserFacade;
+import app.facade.ValueOperationFacade;
 import app.model.UserModel;
 import app.service.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -27,6 +29,7 @@ import java.util.Map;
 @RequestMapping("/api/v1/manager")
 public class ManagerController {
   private final UserFacade userFacade;
+  private final ValueOperationFacade valueOperationFacade;
 
   //http://localhost:8080/swagger-ui/index.html#/
 
@@ -45,7 +48,6 @@ public class ManagerController {
   }
 
   @DeleteMapping("{login}/delete")
-  //TODO: fix this
   public ResponseEntity deleteUser(@PathVariable(name = "login") @Positive Long login) {
     return ResponseEntity.ok(userFacade.deleteUser(login));
   }
@@ -57,9 +59,15 @@ public class ManagerController {
   }
 
   @PostMapping("withdraw")
-  ResponseEntity<UserResponseDTO> withdrawMoney(UserRequestDTO userRequestDTO){
-    return ResponseEntity.ok(userFacade.withdrawMoney(userRequestDTO));
+  ResponseEntity<UserResponseDTO> withdrawMoney(@RequestBody @JsonView(Marker.Value.class) @Valid ValueOperationRequestDTO valueOperationRequestDTO){
+    return ResponseEntity.ok(valueOperationFacade.withdrawMoney(valueOperationRequestDTO));
   }
+
+  @PostMapping("put_money")
+  ResponseEntity<UserResponseDTO> putMoney(@RequestBody @JsonView(Marker.Value.class) @Valid ValueOperationRequestDTO valueOperationRequestDTO){
+    return ResponseEntity.ok(valueOperationFacade.putMoney(valueOperationRequestDTO));
+  }
+
   //putMoney
 
   /*

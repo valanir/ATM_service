@@ -9,4 +9,8 @@ public interface Marker {
   interface Details {
 
   }
+
+  interface Value{
+
+  }
 }
