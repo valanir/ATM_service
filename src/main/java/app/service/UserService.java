@@ -33,30 +33,32 @@ public class UserService extends GeneralService<UserModel> {
   }
 
   public UserModel moneyValueOperation(ValueOperation valueOperation){
+    log.info(valueOperation);
     UserModel user = userModelRepository.getUserModelByLogin(valueOperation.getLoginUser())
                                             .orElseThrow(() -> new UserNotFoundException(valueOperation.getLoginUser()));
     if(valueOperation.getValueSize() < 0) {
+      log.info("true");
       switch (valueOperation.getValuesName()){
         case UAH -> {
-          if(valueOperation.getValueSize() > user.getUah()) new UserHasNotEnoughMoney(user.getLogin());
+          if(valueOperation.getValueSize() < user.getUah()) new UserHasNotEnoughMoney(user.getLogin());
         }
         case USD -> {
-          if(valueOperation.getValueSize() > user.getUsd()) new UserHasNotEnoughMoney(user.getLogin());
+          if(valueOperation.getValueSize() < user.getUsd()) new UserHasNotEnoughMoney(user.getLogin());
         }
         case EURO -> {
-          if(valueOperation.getValueSize() > user.getEuro()) new UserHasNotEnoughMoney(user.getLogin());
+          if(valueOperation.getValueSize() < user.getEuro()) new UserHasNotEnoughMoney(user.getLogin());
         }
         case POUNDSTERLING -> {
-          if(valueOperation.getValueSize() > user.getPoundSterling()) new UserHasNotEnoughMoney(user.getLogin());
+          if(valueOperation.getValueSize() < user.getPoundSterling()) new UserHasNotEnoughMoney(user.getLogin());
         }
         case YUAN -> {
-          if(valueOperation.getValueSize() > user.getYuan()) new UserHasNotEnoughMoney(user.getLogin());
+          if(valueOperation.getValueSize() < user.getYuan()) new UserHasNotEnoughMoney(user.getLogin());
         }
         case ZLOTY -> {
-          if(valueOperation.getValueSize() > user.getZloty()) new UserHasNotEnoughMoney(user.getLogin());
+          if(valueOperation.getValueSize() < user.getZloty()) new UserHasNotEnoughMoney(user.getLogin());
         }
         case YEN -> {
-          if(valueOperation.getValueSize() > user.getYen()) new UserHasNotEnoughMoney(user.getLogin());
+          if(valueOperation.getValueSize() < user.getYen()) new UserHasNotEnoughMoney(user.getLogin());
         }
       }
     }

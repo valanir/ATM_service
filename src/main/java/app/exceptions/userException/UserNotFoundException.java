@@ -1,6 +1,5 @@
 package app.exceptions.userException;
 
-import app.exceptions.AppError;
 import app.exceptions.BadRequestException;
 
 public class UserNotFoundException extends BadRequestException {
