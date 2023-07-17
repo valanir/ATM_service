@@ -1,5 +1,6 @@
 package app.model;
 
+import app.enums.Values_name;
 import app.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +17,13 @@ import javax.persistence.*;
 public class Transaction extends BaseEntity{
 
   @ManyToOne
-  @JoinColumn(name = "login")
+  @JoinColumn(name = "incomingTransactions")
   private UserModel userTransfer;
-
   private String transactionName;
-  private Long userReceiveId;
+  private Double valueSize;
+  private String valuesName;
+  @ManyToOne
+  @JoinColumn(name = "outgoingTransactions")
+  private UserModel userReceive;
 
 }

@@ -13,4 +13,8 @@ public interface Marker {
   interface Value{
 
   }
+
+  interface Deposit{
+
+  }
 }

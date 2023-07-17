@@ -16,15 +16,10 @@ public class ValueOperationFacade extends GeneralFacade<ValueOperation, ValueOpe
   private final UserFacade userFacade;
 
   public UserResponseDTO withdrawMoney(ValueOperationRequestDTO valueOperationRequestDTO){
-    valueOperationRequestDTO.setValueSize(-valueOperationRequestDTO.getValueSize());
-    return userFacade.convertToDto(userService.moneyValueOperation(convertToEntity(valueOperationRequestDTO)));
+    return userFacade.convertToDto(userService.withdrawMoney(convertToEntity(valueOperationRequestDTO)));
   }
 
   public UserResponseDTO putMoney(ValueOperationRequestDTO valueOperationRequestDTO){
-    return userFacade.convertToDto(userService.moneyValueOperation(convertToEntity(valueOperationRequestDTO)));
-  }
-
-  public UserResponseDTO depositMoney(ValueOperationRequestDTO valueOperationRequestDTO){
-    return userFacade.convertToDto(userService.depositMoney(convertToEntity(valueOperationRequestDTO)));
+    return userFacade.convertToDto(userService.putMoney(convertToEntity(valueOperationRequestDTO)));
   }
 }

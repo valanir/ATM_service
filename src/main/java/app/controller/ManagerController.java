@@ -1,9 +1,12 @@
 package app.controller;
 
 import app.annotation.Marker;
+import app.dto.rq.DepositRequestDTO;
 import app.dto.rq.UserRequestDTO;
 import app.dto.rq.ValueOperationRequestDTO;
 import app.dto.rs.UserResponseDTO;
+import app.exceptions.userException.UserHasNotEnoughMoney;
+import app.facade.DepositMoneyFacade;
 import app.facade.UserFacade;
 import app.facade.ValueOperationFacade;
 import app.model.UserModel;
@@ -30,6 +33,7 @@ import java.util.Map;
 public class ManagerController {
   private final UserFacade userFacade;
   private final ValueOperationFacade valueOperationFacade;
+  private final DepositMoneyFacade depositMoneyFacade;
 
   //http://localhost:8080/swagger-ui/index.html#/
 
@@ -58,6 +62,7 @@ public class ManagerController {
     return ResponseEntity.ok(userFacade.getUserValues(login));
   }
 
+  @ExceptionHandler(UserHasNotEnoughMoney.class)
   @PostMapping("withdraw")
   ResponseEntity<UserResponseDTO> withdrawMoney(@RequestBody @JsonView(Marker.Value.class) @Valid ValueOperationRequestDTO valueOperationRequestDTO){
     return ResponseEntity.ok(valueOperationFacade.withdrawMoney(valueOperationRequestDTO));
@@ -69,8 +74,8 @@ public class ManagerController {
   }
 
   @PostMapping("deposit")
-  ResponseEntity<UserResponseDTO> depositMoney(@RequestBody @JsonView(Marker.Value.class) @Valid ValueOperationRequestDTO valueOperationRequestDTO){
-    return ResponseEntity.ok(valueOperationFacade.depositMoney(valueOperationRequestDTO));
+  ResponseEntity<UserResponseDTO> depositMoney(@RequestBody @JsonView(Marker.Deposit.class) @Valid DepositRequestDTO depositRequestDTO){
+    return ResponseEntity.ok(depositMoneyFacade.depositMoney(depositRequestDTO));
   }
   /*
   openDeposit

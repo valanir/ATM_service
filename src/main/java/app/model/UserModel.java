@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Set;
 
@@ -23,8 +25,11 @@ public class UserModel extends BaseEntity {
 
   private Long pin;
 
+  @OneToMany(mappedBy = "userReceive", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  private Set<Transaction> incomingTransactions;
+
   @OneToMany(mappedBy = "userTransfer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-  private Set<Transaction> transactions;
+  private Set<Transaction> outgoingTransactions;
 
   @OneToMany(mappedBy = "userModel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   private Set<DepositModel> depositModels;
